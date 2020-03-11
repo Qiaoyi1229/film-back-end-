@@ -2,7 +2,12 @@ package com.example.film.mapper;
 
 import com.example.film.entity.Area;
 
+import java.util.List;
+
 public interface AreaMapper {
+
+    List<Area> findAll();
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(Area record);

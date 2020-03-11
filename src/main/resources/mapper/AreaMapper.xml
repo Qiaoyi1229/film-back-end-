@@ -9,6 +9,9 @@
   <sql id="Base_Column_List" >
     id, name, create_time
   </sql>
+  <select id="findAll" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from area
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

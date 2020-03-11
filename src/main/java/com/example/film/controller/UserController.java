@@ -63,4 +63,29 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/findAll")
+    public ResultUtil findAllUser() {
+        User query = new User();
+        query.setRole(1);
+        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.UPDATE_SUCCESS, userService.findByModel(query));
+    }
+
+
+    @RequestMapping(value = "/update")
+    public ResultUtil update(User user) {
+        userService.update(user);
+        User query = new User();
+        query.setRole(1);
+        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.UPDATE_SUCCESS, userService.findByModel(query));
+    }
+
+    @RequestMapping(value = "/delete")
+    public ResultUtil delete(Integer id) {
+        userService.delete(id);
+        User query = new User();
+        query.setRole(1);
+        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.DEL_SUCCESS, userService.findByModel(query));
+    }
+
+
 }
