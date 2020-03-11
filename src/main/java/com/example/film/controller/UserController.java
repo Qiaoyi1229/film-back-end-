@@ -4,13 +4,16 @@ import com.example.film.dto.req.UserReq;
 import com.example.film.entity.User;
 import com.example.film.service.UserService;
 import com.example.film.utils.ErrCode;
+import com.example.film.utils.ImageUpload;
 import com.example.film.utils.ResultUtil;
 import com.example.film.utils.SuccessCode;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
@@ -42,7 +45,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/reg")
-    public ResultUtil reg(UserReq userReq) {
+    public ResultUtil reg(@RequestParam(value = "file") MultipartFile file, UserReq userReq) {
         //先查询数据库有无相同账号
         User query = new User();
         query.setName(userReq.getName());
@@ -52,6 +55,8 @@ public class UserController {
         } else {
             User userModel = new User();
             BeanUtils.copyProperties(userReq, userModel);
+            String headImage = ImageUpload.upload(file);
+            userModel.setHeadIamge(headImage);
             userModel.setCreateTime(new Date());
             userModel.setPassword(DigestUtils.md5DigestAsHex(userReq.getPassword().getBytes()));
             Integer flag = userService.insert(userModel);
@@ -72,7 +77,9 @@ public class UserController {
 
 
     @RequestMapping(value = "/update")
-    public ResultUtil update(User user) {
+    public ResultUtil update(@RequestParam(value = "file") MultipartFile file, User user) {
+        String headImage = ImageUpload.upload(file);
+        user.setHeadIamge(headImage);
         userService.update(user);
         User query = new User();
         query.setRole(1);

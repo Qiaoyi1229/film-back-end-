@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>HelloWord</title>
@@ -8,6 +8,13 @@
 <h1>hello springboot!!!</h1>
 
 <br/>
-
+<form action="/fileUpload" method="post" enctype="multipart/form-data">
+    <label>上传图片</label>
+    <input type="text" name="name"/>
+    <input type="file" name="file"/>
+    <input type="submit" value="上传"/>
+</form>
+<p>图片:</p>
+<img  th:src="${filename }"/>
 </body>
 </html>
