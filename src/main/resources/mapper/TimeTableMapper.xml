@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.film.mapper.TimeTableMapper" >
+  <resultMap id="BaseResultMap" type="com.example.film.entity.TimeTable" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="film_id" property="filmId" jdbcType="INTEGER" />
+    <result column="hall_id" property="hallId" jdbcType="INTEGER" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, film_id, hall_id, start_time, price
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from time_table
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from time_table
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.film.entity.TimeTable" >
+    insert into time_table (id, film_id, hall_id, 
+      start_time, price)
+    values (#{id,jdbcType=INTEGER}, #{filmId,jdbcType=INTEGER}, #{hallId,jdbcType=INTEGER}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{price,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.film.entity.TimeTable" >
+    insert into time_table
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="filmId != null" >
+        film_id,
+      </if>
+      <if test="hallId != null" >
+        hall_id,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="filmId != null" >
+        #{filmId,jdbcType=INTEGER},
+      </if>
+      <if test="hallId != null" >
+        #{hallId,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.film.entity.TimeTable" >
+    update time_table
+    <set >
+      <if test="filmId != null" >
+        film_id = #{filmId,jdbcType=INTEGER},
+      </if>
+      <if test="hallId != null" >
+        hall_id = #{hallId,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.film.entity.TimeTable" >
+    update time_table
+    set film_id = #{filmId,jdbcType=INTEGER},
+      hall_id = #{hallId,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      price = #{price,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
