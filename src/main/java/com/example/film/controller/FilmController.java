@@ -41,8 +41,10 @@ public class FilmController {
 
     @RequestMapping(value = "/update")
     public ResultUtil update(@RequestParam(value = "file") MultipartFile file, Film film) {
-        String fileName = ImageUpload.upload(file);
-        film.setImage(fileName);
+        if (!file.isEmpty()) {
+            String fileName = ImageUpload.upload(file);
+            film.setImage(fileName);
+        }
         filmService.update(film);
         return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.UPDATE_SUCCESS, filmService.findByModel(new Film()));
     }

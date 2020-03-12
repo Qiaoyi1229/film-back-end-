@@ -27,7 +27,8 @@ public class SeatServiceImpl implements SeatService {
 
     @Override
     public Integer insert(Seat seat) {
-        return seatMapper.insertSelective(seat);
+        seatMapper.insertSelective(seat);
+        return seat.getId();
     }
 
     @Override

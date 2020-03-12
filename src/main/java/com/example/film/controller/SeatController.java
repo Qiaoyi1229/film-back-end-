@@ -1,5 +1,6 @@
 package com.example.film.controller;
 
+import com.example.film.dto.resp.SeatResp;
 import com.example.film.entity.Seat;
 import com.example.film.service.SeatService;
 import com.example.film.utils.ResultUtil;
@@ -7,6 +8,9 @@ import com.example.film.utils.SuccessCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author 陈乐
@@ -22,7 +26,19 @@ public class SeatController {
 
     @RequestMapping(value = "/findByModel")
     public ResultUtil findByModel(Seat seat) {
-        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.FIND_SUCCESS, seatService.findByModel(seat));
+
+        List<Seat> seats = seatService.findByModel(seat);
+
+        List<Integer> row = new ArrayList<>();
+        List<Integer> column = new ArrayList<>();
+        for (Seat item : seats) {
+            row.add(item.getRow());
+            column.add(item.getNum());
+        }
+        SeatResp seatResp = new SeatResp();
+        seatResp.setColumn(column);
+        seatResp.setRow(row);
+        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.FIND_SUCCESS, seatResp);
     }
 
     @RequestMapping(value = "/insert")

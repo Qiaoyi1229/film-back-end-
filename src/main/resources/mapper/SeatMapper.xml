@@ -40,7 +40,7 @@
     values (#{id,jdbcType=INTEGER}, #{timeId,jdbcType=INTEGER}, #{row,jdbcType=INTEGER}, 
       #{num,jdbcType=INTEGER})
   </insert>
-    <insert id="insertSelective" parameterType="com.example.film.entity.Seat">
+    <insert id="insertSelective" parameterType="com.example.film.entity.Seat" useGeneratedKeys="true" keyProperty="id">
         insert into seat
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">

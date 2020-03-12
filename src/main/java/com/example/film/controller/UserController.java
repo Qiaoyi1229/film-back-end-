@@ -78,8 +78,10 @@ public class UserController {
 
     @RequestMapping(value = "/update")
     public ResultUtil update(@RequestParam(value = "file") MultipartFile file, User user) {
-        String headImage = ImageUpload.upload(file);
-        user.setHeadIamge(headImage);
+        if (!file.isEmpty()) {
+            String headImage = ImageUpload.upload(file);
+            user.setHeadIamge(headImage);
+        }
         userService.update(user);
         User query = new User();
         query.setRole(1);

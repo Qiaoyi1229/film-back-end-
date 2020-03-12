@@ -1,68 +1,96 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.example.film.mapper.DetailMapper" >
-  <resultMap id="BaseResultMap" type="com.example.film.entity.Detail" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="order_id" property="orderId" jdbcType="INTEGER" />
-    <result column="seat_id" property="seatId" jdbcType="INTEGER" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="com.example.film.mapper.DetailMapper">
+    <resultMap id="BaseResultMap" type="com.example.film.entity.Detail">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="order_id" property="orderId" jdbcType="INTEGER"/>
+        <result column="seat_id" property="seatId" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="resultMap" type="com.example.film.doo.DetailDo">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="order_id" property="orderId" jdbcType="INTEGER"/>
+        <result column="seat_id" property="seatId" jdbcType="INTEGER"/>
+        <result column="row" property="row" jdbcType="INTEGER"/>
+        <result column="num" property="num" jdbcType="INTEGER"/>
+        <result column="hallName" property="hallName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
     id, order_id, seat_id
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from detail
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+
+    <select id="findByOrderId" resultMap="resultMap" parameterType="java.lang.Integer">
+        SELECT
+            detail.*,
+            seat.num,
+            seat.`row`,
+            hall.`name` AS hallName
+        FROM
+            `detail`
+            LEFT JOIN  `order` ON detail.order_id = `order`.id
+            LEFT JOIN seat ON detail.seat_id = seat.id
+            LEFT JOIN time_table ON `order`.time_id = time_table.id
+            LEFT JOIN hall ON time_table.hall_id = hall.id
+        WHERE
+            detail.order_id = #{id,jdbcType=INTEGER}
+    </select>
+
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from detail
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from detail
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.example.film.entity.Detail" >
+    <insert id="insert" parameterType="com.example.film.entity.Detail">
     insert into detail (id, order_id, seat_id
       )
     values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{seatId,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.example.film.entity.Detail" >
-    insert into detail
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="orderId != null" >
-        order_id,
-      </if>
-      <if test="seatId != null" >
-        seat_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="orderId != null" >
-        #{orderId,jdbcType=INTEGER},
-      </if>
-      <if test="seatId != null" >
-        #{seatId,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.film.entity.Detail" >
-    update detail
-    <set >
-      <if test="orderId != null" >
-        order_id = #{orderId,jdbcType=INTEGER},
-      </if>
-      <if test="seatId != null" >
-        seat_id = #{seatId,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.film.entity.Detail" >
+    <insert id="insertSelective" parameterType="com.example.film.entity.Detail">
+        insert into detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="orderId != null">
+                order_id,
+            </if>
+            <if test="seatId != null">
+                seat_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="orderId != null">
+                #{orderId,jdbcType=INTEGER},
+            </if>
+            <if test="seatId != null">
+                #{seatId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.film.entity.Detail">
+        update detail
+        <set>
+            <if test="orderId != null">
+                order_id = #{orderId,jdbcType=INTEGER},
+            </if>
+            <if test="seatId != null">
+                seat_id = #{seatId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.film.entity.Detail">
     update detail
     set order_id = #{orderId,jdbcType=INTEGER},
       seat_id = #{seatId,jdbcType=INTEGER}

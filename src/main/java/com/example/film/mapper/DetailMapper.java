@@ -1,8 +1,14 @@
 package com.example.film.mapper;
 
+import com.example.film.doo.DetailDo;
 import com.example.film.entity.Detail;
 
+import java.util.List;
+
 public interface DetailMapper {
+
+    List<DetailDo> findByOrderId(Integer id);
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(Detail record);

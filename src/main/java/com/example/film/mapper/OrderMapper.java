@@ -1,8 +1,15 @@
 package com.example.film.mapper;
 
+import com.example.film.doo.OrderDo;
 import com.example.film.entity.Order;
+import com.sun.org.apache.xpath.internal.operations.Or;
+
+import java.util.List;
 
 public interface OrderMapper {
+
+    List<OrderDo> findByModel(Order order);
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(Order record);

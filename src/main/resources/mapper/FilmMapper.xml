@@ -50,7 +50,7 @@
                 AND film.id = #{id}
             </if>
             <if test="name != null and name != '' ">
-                AND film.name = #{name}
+                AND film.name LIKE CONCAT(CONCAT('%', #{name}), '%')
             </if>
             <if test="typeId != null ">
                 AND film.type_id = #{typeId}
