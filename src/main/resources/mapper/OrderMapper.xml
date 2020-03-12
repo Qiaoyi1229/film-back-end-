@@ -21,12 +21,70 @@
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="userName" property="userName" jdbcType="VARCHAR"/>
         <result column="filmName" property="filmName" jdbcType="VARCHAR"/>
+        <result column="typeName" property="typeName" jdbcType="VARCHAR"/>
+        <result column="ageRange" property="ageRange" jdbcType="VARCHAR"/>
+        <result column="count" property="count" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
     id, order_no, user_id, time_id, total, status, create_time
   </sql>
 
+    <select id="ageStatistical" resultMap="resultMap" parameterType="java.lang.Integer">
+        SELECT
+        age as ageRange,
+        count( * ) AS count
+        FROM
+        (
+        SELECT
+        CASE
+
+        WHEN USER
+        .age &gt; 0
+        AND USER.age &lt;= 20 THEN '0-20岁' WHEN USER.age &gt; 20
+        AND USER.age &lt;= 40 THEN '20-40岁' WHEN USER.age &gt; 40
+        AND USER.age &lt;= 60 THEN
+        '40-60岁' ELSE '60岁以上'
+        END AS age
+        FROM
+        `order`
+        LEFT JOIN time_table ON `order`.time_id = time_table.id
+        LEFT JOIN film ON time_table.film_id = film.id
+        LEFT JOIN USER ON `order`.user_id = USER.id
+        WHERE
+        `order`.`status` = 1 and film.id = #{id}
+        ) a
+        GROUP BY
+        age
+    </select>
+
+    <select id="priceStatistical" resultMap="resultMap" parameterType="com.example.film.entity.Order">
+        SELECT
+            sum( `order`.total ) AS total,
+            film.`name` AS filmName
+        FROM
+            `order`
+            LEFT JOIN time_table ON `order`.time_id = time_table.id
+            LEFT JOIN film ON time_table.film_id = film.id
+        WHERE
+            `order`.`status` = 1
+        GROUP BY
+            film.id
+    </select>
+
+    <select id="typeStatistical" resultMap="resultMap" parameterType="com.example.film.entity.Order">
+        SELECT
+            sum( `order`.total ) as total,
+            types.`name` AS typeName
+        FROM
+            `order`
+            LEFT JOIN time_table ON `order`.time_id = time_table.id
+            LEFT JOIN film ON time_table.film_id = film.id
+            LEFT JOIN types ON film.type_id = types.id
+        where `order`.`status` = 1
+        GROUP BY
+            types.id
+    </select>
     <select id="findByModel" resultMap="resultMap" parameterType="com.example.film.entity.Order">
         SELECT
         `order`.*,

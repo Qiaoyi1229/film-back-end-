@@ -21,6 +21,21 @@ public class OrderServiceImpl implements OrderService {
     OrderMapper orderMapper;
 
     @Override
+    public List<OrderDo> ageStatistical(Integer id) {
+        return orderMapper.ageStatistical(id);
+    }
+
+    @Override
+    public List<OrderDo> priceStatistical() {
+        return orderMapper.priceStatistical();
+    }
+
+    @Override
+    public List<OrderDo> typeStatistical() {
+        return orderMapper.typeStatistical();
+    }
+
+    @Override
     public List<OrderDo> findByModel(Order order) {
         return orderMapper.findByModel(order);
     }

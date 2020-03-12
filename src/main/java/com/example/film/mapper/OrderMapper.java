@@ -8,6 +8,12 @@ import java.util.List;
 
 public interface OrderMapper {
 
+    List<OrderDo> ageStatistical(Integer id);
+
+    List<OrderDo> priceStatistical();
+
+    List<OrderDo> typeStatistical();
+
     List<OrderDo> findByModel(Order order);
 
     int deleteByPrimaryKey(Integer id);

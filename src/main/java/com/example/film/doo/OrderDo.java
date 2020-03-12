@@ -27,6 +27,12 @@ public class OrderDo {
 
     private String filmName;
 
+    private String typeName;
+
+    private String ageRange;
+
+    private Integer count;
+
     public Integer getId() {
         return id;
     }
@@ -97,5 +103,29 @@ public class OrderDo {
 
     public void setFilmName(String filmName) {
         this.filmName = filmName;
+    }
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
+
+    public String getAgeRange() {
+        return ageRange;
+    }
+
+    public void setAgeRange(String ageRange) {
+        this.ageRange = ageRange;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 }

@@ -12,6 +12,12 @@ import java.util.List;
  */
 public interface OrderService {
 
+    List<OrderDo> ageStatistical(Integer id);
+
+    List<OrderDo> priceStatistical();
+
+    List<OrderDo> typeStatistical();
+
     List<OrderDo> findByModel(Order order);
 
     Integer insert(Order order);
