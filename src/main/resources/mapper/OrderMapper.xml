@@ -24,11 +24,32 @@
         <result column="typeName" property="typeName" jdbcType="VARCHAR"/>
         <result column="ageRange" property="ageRange" jdbcType="VARCHAR"/>
         <result column="count" property="count" jdbcType="INTEGER"/>
+        <result column="week" property="week" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
     id, order_no, user_id, time_id, total, status, create_time
   </sql>
+
+    <select id="getTotal" resultType="Integer" parameterType="java.lang.Integer">
+        SELECT
+            SUM( total ) as total
+        FROM
+            `order`
+        WHERE
+            `status` = 1
+    </select>
+
+    <select id="getByWeek" resultMap="resultMap" parameterType="java.lang.Integer">
+        SELECT
+        Week(create_time) as week,
+        SUM( total ) as total
+        FROM
+        `order`
+        WHERE
+        `status` = 1
+        GROUP BY Week(create_time)
+    </select>
 
     <select id="ageStatistical" resultMap="resultMap" parameterType="java.lang.Integer">
         SELECT

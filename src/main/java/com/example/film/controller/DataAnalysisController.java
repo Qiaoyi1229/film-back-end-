@@ -25,6 +25,38 @@ public class DataAnalysisController {
     @Autowired
     OrderService orderService;
 
+
+    /**
+     * 总票房统计
+     *
+     * @return
+     */
+    @RequestMapping(value = "/getTotal")
+    public ResultUtil getTotal() {
+        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.FIND_SUCCESS, orderService.getTotal());
+    }
+
+
+    /**
+     * 每周票房统计
+     *
+     * @return
+     */
+    @RequestMapping(value = "/getByWeek")
+    public ResultUtil getByWeek() {
+        List<OrderDo> orderDos = orderService.getByWeek();
+        List total = new ArrayList();
+        List typeName = new ArrayList();
+        for (OrderDo item : orderDos) {
+            total.add(item.getTotal());
+            typeName.add(item.getWeek());
+        }
+        TypeStatistical typeStatistical = new TypeStatistical();
+        typeStatistical.setTotal(total);
+        typeStatistical.setTypeName(typeName);
+        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.FIND_SUCCESS, typeStatistical);
+    }
+
     /**
      * 类型统计：每种类型的电影票房多少
      *

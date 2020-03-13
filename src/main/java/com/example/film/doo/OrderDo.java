@@ -33,6 +33,8 @@ public class OrderDo {
 
     private Integer count;
 
+    private Integer week;
+
     public Integer getId() {
         return id;
     }
@@ -127,5 +129,13 @@ public class OrderDo {
 
     public void setCount(Integer count) {
         this.count = count;
+    }
+
+    public Integer getWeek() {
+        return week;
+    }
+
+    public void setWeek(Integer week) {
+        this.week = week;
     }
 }

@@ -12,6 +12,10 @@ import java.util.List;
  */
 public interface OrderService {
 
+    List<OrderDo> getByWeek();
+
+    Integer getTotal();
+
     List<OrderDo> ageStatistical(Integer id);
 
     List<OrderDo> priceStatistical();

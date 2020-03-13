@@ -21,6 +21,16 @@ public class OrderServiceImpl implements OrderService {
     OrderMapper orderMapper;
 
     @Override
+    public List<OrderDo> getByWeek() {
+        return orderMapper.getByWeek();
+    }
+
+    @Override
+    public Integer getTotal() {
+        return orderMapper.getTotal();
+    }
+
+    @Override
     public List<OrderDo> ageStatistical(Integer id) {
         return orderMapper.ageStatistical(id);
     }

@@ -8,6 +8,10 @@ import java.util.List;
 
 public interface OrderMapper {
 
+    List<OrderDo> getByWeek();
+
+    Integer getTotal();
+
     List<OrderDo> ageStatistical(Integer id);
 
     List<OrderDo> priceStatistical();
