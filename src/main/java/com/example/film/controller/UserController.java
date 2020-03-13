@@ -32,36 +32,16 @@ public class UserController {
 
     @RequestMapping(value = "/login")
     public ResultUtil login(UserReq userReq, HttpSession session) {
-        //首先判断验证码是否正确
-        try {
-            //从session中获取随机数
-            String random = (String) session.getAttribute(RandomValidateCodeUtil.RANDOMCODEKEY);
-            System.out.println(random);
-            System.out.println(userReq.getCode());
-            if (random == null) {
-                return ResultUtil.build(ErrCode.ERR_CODE, "验证码错误", null);
-            }
-            if (random.equals(userReq.getCode())) {
-                System.out.println("正确的验证码");
-                User query = new User();
-                query.setName(userReq.getName());
-                query.setPassword(DigestUtils.md5DigestAsHex(userReq.getPassword().getBytes()));
-                query.setRole(userReq.getRole());
-                List<User> users = userService.findByModel(query);
-                if (users.size() > 0) {
-                    return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.LOGIN_SUCCESS, users.get(0));
-                } else {
-                    return ResultUtil.build(ErrCode.ERR_CODE, ErrCode.ERR_LOGIN, null);
-                }
-            } else {
-                System.out.println("错误的验证码");
-                return ResultUtil.build(ErrCode.ERR_CODE, "验证码错误", null);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        User query = new User();
+        query.setName(userReq.getName());
+        query.setPassword(DigestUtils.md5DigestAsHex(userReq.getPassword().getBytes()));
+        query.setRole(userReq.getRole());
+        List<User> users = userService.findByModel(query);
+        if (users.size() > 0) {
+            return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.LOGIN_SUCCESS, users.get(0));
+        } else {
+            return ResultUtil.build(ErrCode.ERR_CODE, ErrCode.ERR_LOGIN, null);
         }
-        return ResultUtil.build(ErrCode.ERR_CODE, "验证码错误", null);
-
     }
 
     /**
