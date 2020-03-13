@@ -3,10 +3,7 @@ package com.example.film.controller;
 import com.example.film.dto.req.UserReq;
 import com.example.film.entity.User;
 import com.example.film.service.UserService;
-import com.example.film.utils.ErrCode;
-import com.example.film.utils.ImageUpload;
-import com.example.film.utils.ResultUtil;
-import com.example.film.utils.SuccessCode;
+import com.example.film.utils.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
@@ -15,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 
@@ -31,17 +31,54 @@ public class UserController {
     UserService userService;
 
     @RequestMapping(value = "/login")
-    public ResultUtil login(UserReq userReq) {
-        User query = new User();
-        query.setName(userReq.getName());
-        query.setPassword(DigestUtils.md5DigestAsHex(userReq.getPassword().getBytes()));
-        List<User> users = userService.findByModel(query);
-        if (users.size() > 0) {
-            return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.LOGIN_SUCCESS, users.get(0));
-        } else {
-            return ResultUtil.build(ErrCode.ERR_CODE, ErrCode.ERR_LOGIN, null);
+    public ResultUtil login(UserReq userReq, HttpSession session) {
+        //首先判断验证码是否正确
+        try {
+            //从session中获取随机数
+            String random = (String) session.getAttribute(RandomValidateCodeUtil.RANDOMCODEKEY);
+            System.out.println(random);
+            System.out.println(userReq.getCode());
+            if (random == null) {
+                return ResultUtil.build(ErrCode.ERR_CODE, "验证码错误", null);
+            }
+            if (random.equals(userReq.getCode())) {
+                System.out.println("正确的验证码");
+                User query = new User();
+                query.setName(userReq.getName());
+                query.setPassword(DigestUtils.md5DigestAsHex(userReq.getPassword().getBytes()));
+                query.setRole(userReq.getRole());
+                List<User> users = userService.findByModel(query);
+                if (users.size() > 0) {
+                    return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.LOGIN_SUCCESS, users.get(0));
+                } else {
+                    return ResultUtil.build(ErrCode.ERR_CODE, ErrCode.ERR_LOGIN, null);
+                }
+            } else {
+                System.out.println("错误的验证码");
+                return ResultUtil.build(ErrCode.ERR_CODE, "验证码错误", null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return ResultUtil.build(ErrCode.ERR_CODE, "验证码错误", null);
 
+    }
+
+    /**
+     * 生成验证码
+     */
+    @RequestMapping(value = "/getVerify")
+    public void getVerify(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            response.setContentType("image/jpeg");//设置相应类型,告诉浏览器输出的内容为图片
+            response.setHeader("Pragma", "No-cache");//设置响应头信息，告诉浏览器不要缓存此内容
+            response.setHeader("Cache-Control", "no-cache");
+            response.setDateHeader("Expire", 0);
+            RandomValidateCodeUtil randomValidateCode = new RandomValidateCodeUtil();
+            randomValidateCode.getRandcode(request, response);//输出验证码图片方法
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @RequestMapping(value = "/reg")

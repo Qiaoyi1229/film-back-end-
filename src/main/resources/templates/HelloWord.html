@@ -15,6 +15,34 @@
     <input type="submit" value="上传"/>
 </form>
 <p>图片:</p>
-<img  th:src="${filename }"/>
+<img th:src="${filename }"/>
+
+<br/>
+
+<div class="row">
+    <div class="col-xs-6 pull_left">
+        <form action="/api/v1/film/user/login">
+            <div class="form-group">
+                <input class="form-control" name="password">
+                <input class="form-control" name="name">
+                <input class="form-control" name="role">
+                <input class="form-control" type="tel" id="verify_input" name="code" placeholder="请输入验证码" maxlength="4">
+            </div>
+            <div class="form-group">
+                <button type="submit">提交</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-xs-6 pull_left">
+        <a href="javascript:void(0);" title="点击更换验证码">
+            <img id="imgVerify" src="" alt="更换验证码" height="36" width="100px" onclick="getVerify(this);">
+        </a>
+    </div>
+    <script>
+        function getVerify(obj) {
+            obj.src = "/api/v1/film/user/getVerify?" + Math.random();
+        }
+    </script>
+</div>
 </body>
 </html>

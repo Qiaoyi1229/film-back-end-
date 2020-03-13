@@ -1,6 +1,5 @@
 package com.example.film.controller;
 
-import com.example.film.entity.User;
 import com.example.film.utils.ImageUpload;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
-import java.util.UUID;
 
 /**
  * @author 陈乐
@@ -28,7 +24,7 @@ public class TestController {
     }
 
     @PostMapping(value = "/fileUpload")
-    public String fileUpload(@RequestParam(value = "file") MultipartFile file, User user, Model model, HttpServletRequest request) {
+    public String fileUpload(@RequestParam(value = "file") MultipartFile file, Model model, HttpServletRequest request) {
         String filename = ImageUpload.upload(file);
         model.addAttribute("filename", filename);
         return "HelloWord";
