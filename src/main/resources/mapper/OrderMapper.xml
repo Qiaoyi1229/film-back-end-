@@ -4,6 +4,7 @@
     <resultMap id="BaseResultMap" type="com.example.film.entity.Order">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="order_no" property="orderNo" jdbcType="VARCHAR"/>
+        <result column="ticket_code" property="ticketCode" jdbcType="VARCHAR"/>
         <result column="user_id" property="userId" jdbcType="INTEGER"/>
         <result column="time_id" property="timeId" jdbcType="INTEGER"/>
         <result column="total" property="total" jdbcType="VARCHAR"/>
@@ -14,6 +15,7 @@
     <resultMap id="resultMap" type="com.example.film.doo.OrderDo">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="order_no" property="orderNo" jdbcType="VARCHAR"/>
+        <result column="ticket_code" property="ticketCode" jdbcType="VARCHAR"/>
         <result column="user_id" property="userId" jdbcType="INTEGER"/>
         <result column="time_id" property="timeId" jdbcType="INTEGER"/>
         <result column="total" property="total" jdbcType="VARCHAR"/>
@@ -28,7 +30,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-    id, order_no, user_id, time_id, total, status, create_time
+    id, order_no, ticket_code,user_id, time_id, total, status, create_time
   </sql>
 
     <select id="getTotal" resultType="Integer" parameterType="java.lang.Integer">

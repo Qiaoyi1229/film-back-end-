@@ -13,6 +13,8 @@ public class OrderDo {
 
     private String orderNo;
 
+    private String ticketCode;
+
     private Integer userId;
 
     private Integer timeId;
@@ -137,5 +139,13 @@ public class OrderDo {
 
     public void setWeek(Integer week) {
         this.week = week;
+    }
+
+    public String getTicketCode() {
+        return ticketCode;
+    }
+
+    public void setTicketCode(String ticketCode) {
+        this.ticketCode = ticketCode;
     }
 }

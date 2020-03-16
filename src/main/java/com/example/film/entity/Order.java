@@ -7,6 +7,8 @@ public class Order {
 
     private String orderNo;
 
+    private String ticketCode;
+
     private Integer userId;
 
     private Integer timeId;
@@ -71,5 +73,13 @@ public class Order {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getTicketCode() {
+        return ticketCode;
+    }
+
+    public void setTicketCode(String ticketCode) {
+        this.ticketCode = ticketCode;
     }
 }

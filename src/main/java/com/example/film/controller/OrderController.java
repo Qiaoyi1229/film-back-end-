@@ -50,10 +50,13 @@ public class OrderController {
 
         //生成订单号；时间戳+场次+用户
         String orderNo = String.valueOf(new Date().getTime()) + orderReq.getTimeId() + orderReq.getUserId();
+        //取票码：订单号后八位
+        String ticketCode = orderNo.substring(orderNo.length()-8);
         Order order = new Order();
         BeanUtils.copyProperties(orderReq, order);
         order.setCreateTime(new Date());
         order.setOrderNo(orderNo);
+        order.setTicketCode(ticketCode);
         Integer orderId = orderService.insert(order);
 
         //分解座位信息 格式为1*1,1*2
