@@ -2,12 +2,13 @@ package com.example.film.mapper;
 
 import com.example.film.doo.TimeTableDo;
 import com.example.film.entity.TimeTable;
+import com.example.film.query.TimeTableQueryModel;
 
 import java.util.List;
 
 public interface TimeTableMapper {
 
-    List<TimeTableDo> findByModel(TimeTable timeTable);
+    List<TimeTableDo> findByModel(TimeTableQueryModel timeTableQueryModel);
 
     int deleteByPrimaryKey(Integer id);
 

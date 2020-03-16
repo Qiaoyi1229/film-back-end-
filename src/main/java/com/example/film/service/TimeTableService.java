@@ -1,6 +1,7 @@
 package com.example.film.service;
 
 import com.example.film.doo.TimeTableDo;
+import com.example.film.dto.req.TimeTableReq;
 import com.example.film.entity.TimeTable;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public interface TimeTableService {
 
-    List<TimeTableDo> findByModel(TimeTable timeTable);
+    List<TimeTableDo> findByModel(TimeTableReq timeTableReq);
 
     Integer insert(TimeTable timeTable);
 
