@@ -163,6 +163,9 @@
             <if test="orderNo != null">
                 order_no,
             </if>
+            <if test="ticketCode != null">
+                ticket_code,
+            </if>
             <if test="userId != null">
                 user_id,
             </if>
@@ -185,6 +188,9 @@
             </if>
             <if test="orderNo != null">
                 #{orderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="ticketCode != null">
+                #{ticketCode,jdbcType=VARCHAR},
             </if>
             <if test="userId != null">
                 #{userId,jdbcType=INTEGER},

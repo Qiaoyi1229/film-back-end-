@@ -35,7 +35,7 @@ public class TestController {
     @RequestMapping(value = "/preview", method = RequestMethod.GET)
     public void pdfStreamHandler(HttpServletRequest request, HttpServletResponse response) {
         //PDF文件地址
-        File file = new File("F:\\testTable3.pdf");
+        File file = new File("F:\\ticket.pdf");
         if (file.exists()) {
             byte[] data = null;
             FileInputStream input=null;
