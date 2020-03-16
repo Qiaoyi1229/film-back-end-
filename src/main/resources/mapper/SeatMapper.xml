@@ -44,16 +44,16 @@
         insert into seat
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
-                id,
+                seat.id,
             </if>
             <if test="timeId != null">
-                time_id,
+                seat.time_id,
             </if>
             <if test="row != null">
-                row,
+                seat.row,
             </if>
             <if test="num != null">
-                num,
+                seat.num,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
