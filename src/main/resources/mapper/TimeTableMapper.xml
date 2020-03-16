@@ -47,7 +47,7 @@
                 AND time_table.start_time &lt;= #{endTime}
             </if>
         </trim>
-        GROUP BY time_table.start_time DESC
+        ORDER BY time_table.start_time DESC
     </select>
 
 
