@@ -32,29 +32,4 @@ public class TestController {
         return "HelloWord";
     }
 
-    @RequestMapping(value = "/preview", method = RequestMethod.GET)
-    public void pdfStreamHandler(HttpServletRequest request, HttpServletResponse response) {
-        //PDF文件地址
-        File file = new File("F:\\ticket.pdf");
-        if (file.exists()) {
-            byte[] data = null;
-            FileInputStream input=null;
-            try {
-                input= new FileInputStream(file);
-                data = new byte[input.available()];
-                input.read(data);
-                response.getOutputStream().write(data);
-            } catch (Exception e) {
-                System.out.println("pdf文件处理异常：" + e);
-            }finally{
-                try {
-                    if(input!=null){
-                        input.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
 }

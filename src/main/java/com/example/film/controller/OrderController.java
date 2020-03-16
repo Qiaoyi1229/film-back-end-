@@ -16,8 +16,13 @@ import com.example.film.utils.SuccessCode;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -87,7 +92,7 @@ public class OrderController {
             detail.setSeatId(seatId);
             detailService.insert(detail);
 
-            ticketSeatInfo.append(seat2[0]+"排"+seat2[1]+"座     ");
+            ticketSeatInfo.append(seat2[0] + "排" + seat2[1] + "座     ");
         }
 
         //查找场次信息
@@ -104,12 +109,12 @@ public class OrderController {
         filmQuery.setId(timeTableDo.getFilmId());
         List<FilmDo> filmDos = filmService.findByModel(filmQuery);
         FilmDo filmDo = null;
-        if (filmDos.size()>0){
+        if (filmDos.size() > 0) {
             filmDo = filmDos.get(0);
         }
 
         //生成PDF文件
-        PDFUtil.createPDF("F:/ticket.pdf",order,timeTableDo,filmDo,peopleNum,ticketSeatInfo.toString());
+        PDFUtil.createPDF("F:/ticket.pdf", order, timeTableDo, filmDo, peopleNum, ticketSeatInfo.toString());
 
         return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.INSERT_SUCCESS, null);
     }
@@ -144,5 +149,31 @@ public class OrderController {
     public ResultUtil delete(Integer id) {
         orderService.delete(id);
         return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.DEL_SUCCESS, orderService.findByModel(new Order()));
+    }
+
+    @RequestMapping(value = "/preview", method = RequestMethod.GET)
+    public void pdfStreamHandler(HttpServletRequest request, HttpServletResponse response) {
+        //PDF文件地址
+        File file = new File("F:\\ticket.pdf");
+        if (file.exists()) {
+            byte[] data = null;
+            FileInputStream input = null;
+            try {
+                input = new FileInputStream(file);
+                data = new byte[input.available()];
+                input.read(data);
+                response.getOutputStream().write(data);
+            } catch (Exception e) {
+                System.out.println("pdf文件处理异常：" + e);
+            } finally {
+                try {
+                    if (input != null) {
+                        input.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
