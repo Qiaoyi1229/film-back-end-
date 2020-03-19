@@ -99,11 +99,12 @@ public class UserController {
 
 
     @RequestMapping(value = "/update")
-    public ResultUtil update(@RequestParam(value = "file") MultipartFile file, User user) {
-        if (!file.isEmpty()) {
+    //public ResultUtil update(@RequestParam(value = "file") MultipartFile file, User user) {
+    public ResultUtil update(User user) {
+        /*if (!file.isEmpty()) {
             String headImage = ImageUpload.upload(file);
             user.setHeadIamge(headImage);
-        }
+        }*/
         user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
         userService.update(user);
         User query = new User();
