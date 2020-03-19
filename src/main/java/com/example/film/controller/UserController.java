@@ -92,6 +92,11 @@ public class UserController {
         return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.UPDATE_SUCCESS, userService.findByModel(query));
     }
 
+    @RequestMapping(value = "/findByModel")
+    public ResultUtil findByModel(User user) {
+        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.UPDATE_SUCCESS, userService.findByModel(user));
+    }
+
 
     @RequestMapping(value = "/update")
     public ResultUtil update(@RequestParam(value = "file") MultipartFile file, User user) {
