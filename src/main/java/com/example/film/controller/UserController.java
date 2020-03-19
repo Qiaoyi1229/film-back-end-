@@ -99,6 +99,7 @@ public class UserController {
             String headImage = ImageUpload.upload(file);
             user.setHeadIamge(headImage);
         }
+        user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
         userService.update(user);
         User query = new User();
         query.setRole(1);
