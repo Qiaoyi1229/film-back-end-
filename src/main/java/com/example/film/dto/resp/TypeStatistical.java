@@ -27,4 +27,12 @@ public class TypeStatistical {
     public void setTypeName(List typeName) {
         this.typeName = typeName;
     }
+
+    @Override
+    public String toString() {
+        return "TypeStatistical{" +
+                "total=" + total +
+                ", typeName=" + typeName +
+                '}';
+    }
 }

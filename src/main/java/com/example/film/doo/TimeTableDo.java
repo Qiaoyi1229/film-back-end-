@@ -79,4 +79,18 @@ public class TimeTableDo {
     public void setHallName(String hallName) {
         this.hallName = hallName;
     }
+
+
+    @Override
+    public String toString() {
+        return "TimeTableDo{" +
+                "id=" + id +
+                ", filmId=" + filmId +
+                ", hallId=" + hallId +
+                ", startTime=" + startTime +
+                ", price=" + price +
+                ", filmName='" + filmName + '\'' +
+                ", hallName='" + hallName + '\'' +
+                '}';
+    }
 }
