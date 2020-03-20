@@ -1,7 +1,6 @@
 package com.example.film.service;
 
 import com.example.film.entity.Hall;
-import org.omg.PortableInterceptor.INACTIVE;
 
 import java.util.List;
 
