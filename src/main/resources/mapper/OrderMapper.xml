@@ -27,6 +27,7 @@
         <result column="ageRange" property="ageRange" jdbcType="VARCHAR"/>
         <result column="count" property="count" jdbcType="INTEGER"/>
         <result column="week" property="week" jdbcType="INTEGER"/>
+        <result column="filmId" property="filmId" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -112,7 +113,8 @@
         SELECT
         `order`.*,
         USER.`name` AS userName,
-        film.`name` AS filmName
+        film.`name` AS filmName,
+        film.id as filmId
         FROM
         `order`
         LEFT JOIN USER ON `order`.user_id = USER.id

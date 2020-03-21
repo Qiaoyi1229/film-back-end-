@@ -37,6 +37,8 @@ public class OrderDo {
 
     private Integer week;
 
+    private Integer filmId;
+
     public Integer getId() {
         return id;
     }
@@ -147,5 +149,13 @@ public class OrderDo {
 
     public void setTicketCode(String ticketCode) {
         this.ticketCode = ticketCode;
+    }
+
+    public Integer getFilmId() {
+        return filmId;
+    }
+
+    public void setFilmId(Integer filmId) {
+        this.filmId = filmId;
     }
 }
