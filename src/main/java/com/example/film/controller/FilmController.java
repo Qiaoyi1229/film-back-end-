@@ -49,6 +49,12 @@ public class FilmController {
         return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.UPDATE_SUCCESS, filmService.findByModel(new Film()));
     }
 
+    @RequestMapping(value = "/updateShelves")
+    public ResultUtil updateShelves(Film film) {
+        filmService.update(film);
+        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.UPDATE_SUCCESS, filmService.findByModel(new Film()));
+    }
+
     @RequestMapping(value = "/delete")
     public ResultUtil delete(Integer id) {
         filmService.delete(id);
