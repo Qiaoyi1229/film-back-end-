@@ -133,6 +133,9 @@
             <if test="userId != null">
                 AND `order`.user_id = #{userId}
             </if>
+            <if test="timeId != null">
+                AND `order`.time_id = #{timeId}
+            </if>
         </trim>
         order by `order`.create_time desc
     </select>
