@@ -85,6 +85,29 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/regAndroid")
+    public ResultUtil regAndroid(UserReq userReq) {
+        User query = new User();
+        query.setName(userReq.getName());
+        List<User> queryUser = userService.findByModel(query);
+        if (queryUser.size() > 0) {
+            return ResultUtil.build(ErrCode.ERR_CODE, "用户名存在", null);
+        } else {
+            User userModel = new User();
+            BeanUtils.copyProperties(userReq, userModel);
+            String headImage = "/image/user.png";
+            userModel.setHeadIamge(headImage);
+            userModel.setCreateTime(new Date());
+            userModel.setPassword(DigestUtils.md5DigestAsHex(userReq.getPassword().getBytes()));
+            Integer flag = userService.insert(userModel);
+            if (flag > 0) {
+                return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.REG_SUCCESS, null);
+            } else {
+                return ResultUtil.build(ErrCode.ERR_CODE, ErrCode.ERR_REG, null);
+            }
+        }
+    }
+
     @RequestMapping(value = "/findAll")
     public ResultUtil findAllUser() {
         User query = new User();
