@@ -122,17 +122,20 @@ public class UserController {
 
 
     @RequestMapping(value = "/update")
-    //public ResultUtil update(@RequestParam(value = "file") MultipartFile file, User user) {
     public ResultUtil update(User user) {
-        /*if (!file.isEmpty()) {
-            String headImage = ImageUpload.upload(file);
-            user.setHeadIamge(headImage);
-        }*/
         user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
         userService.update(user);
         User query = new User();
         query.setRole(1);
         return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.UPDATE_SUCCESS, userService.findByModel(query));
+    }
+
+    @RequestMapping(value = "/updateImageHead")
+    public ResultUtil updateImageHead(@RequestParam(value = "file") MultipartFile file, User user) {
+        String headImage = ImageUpload.upload(file);
+        user.setHeadIamge(headImage);
+        userService.update(user);
+        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.UPDATE_SUCCESS, userService.findByModel(user));
     }
 
     @RequestMapping(value = "/delete")
