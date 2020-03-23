@@ -38,6 +38,10 @@
             <if test="filmId != null">
                 AND comment.film_id = #{filmId}
             </if>
+            <if test="createTime != null">
+                AND comment.create_time &gt;= DATE_FORMAT(#{createTime},'%Y-%m-%d 00:00:00')
+                AND comment.create_time &lt;= DATE_FORMAT(#{createTime},'%Y-%m-%d 23:59:59')
+            </if>
         </trim>
     </select>
 
