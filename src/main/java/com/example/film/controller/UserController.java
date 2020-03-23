@@ -123,11 +123,17 @@ public class UserController {
 
     @RequestMapping(value = "/update")
     public ResultUtil update(User user) {
-        user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
         userService.update(user);
         User query = new User();
         query.setRole(1);
         return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.UPDATE_SUCCESS, userService.findByModel(query));
+    }
+
+    @RequestMapping(value = "/updatePwd")
+    public ResultUtil updatePwd(User user) {
+        user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
+        userService.update(user);
+        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.UPDATE_SUCCESS, userService.findByModel(user));
     }
 
     @RequestMapping(value = "/updateImageHead")
