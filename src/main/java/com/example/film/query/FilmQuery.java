@@ -1,13 +1,13 @@
-package com.example.film.doo;
+package com.example.film.query;
 
 import java.util.Date;
 
 /**
  * @author 陈乐
  * @version 1.0
- * @date 2020/3/11 21:03
+ * @date 2020/3/27 19:06
  */
-public class FilmDo {
+public class FilmQuery {
 
     private Integer id;
 
@@ -19,9 +19,11 @@ public class FilmDo {
 
     private String details;
 
-    private String length;
-
     private String filmType;
+
+    private String yearStr;
+
+    private String length;
 
     private Integer typeId;
 
@@ -34,10 +36,6 @@ public class FilmDo {
     private Integer filmShelves;
 
     private Date createTime;
-
-    private String areaName;
-
-    private String typeName;
 
     public Integer getId() {
         return id;
@@ -77,6 +75,22 @@ public class FilmDo {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    public String getFilmType() {
+        return filmType;
+    }
+
+    public void setFilmType(String filmType) {
+        this.filmType = filmType;
+    }
+
+    public String getYearStr() {
+        return yearStr;
+    }
+
+    public void setYearStr(String yearStr) {
+        this.yearStr = yearStr;
     }
 
     public String getLength() {
@@ -135,27 +149,4 @@ public class FilmDo {
         this.createTime = createTime;
     }
 
-    public String getAreaName() {
-        return areaName;
-    }
-
-    public void setAreaName(String areaName) {
-        this.areaName = areaName;
-    }
-
-    public String getTypeName() {
-        return typeName;
-    }
-
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
-    }
-
-    public String getFilmType() {
-        return filmType;
-    }
-
-    public void setFilmType(String filmType) {
-        this.filmType = filmType;
-    }
 }

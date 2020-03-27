@@ -1,6 +1,7 @@
 package com.example.film.service;
 
 import com.example.film.doo.FilmDo;
+import com.example.film.dto.req.FilmReq;
 import com.example.film.entity.Film;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public interface FilmService {
 
-    List<FilmDo> findByModel(Film film);
+    List<FilmDo> findByModel(FilmReq filmReq);
 
     Integer insert(Film film);
 

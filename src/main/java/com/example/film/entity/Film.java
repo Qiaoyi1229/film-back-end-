@@ -13,6 +13,8 @@ public class Film {
 
     private String details;
 
+    private String filmType;
+
     private String length;
 
     private Integer typeId;
@@ -121,5 +123,13 @@ public class Film {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getFilmType() {
+        return filmType;
+    }
+
+    public void setFilmType(String filmType) {
+        this.filmType = filmType;
     }
 }

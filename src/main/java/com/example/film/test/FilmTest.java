@@ -1,6 +1,7 @@
 package com.example.film.test;
 
 import com.example.film.doo.FilmDo;
+import com.example.film.dto.req.FilmReq;
 import com.example.film.entity.Film;
 import com.example.film.entity.User;
 import com.example.film.service.FilmService;
@@ -28,7 +29,7 @@ public class FilmTest {
 
     @Test
     public void findAll() {
-        List<FilmDo> filmDos = filmService.findByModel(new Film());
+        List<FilmDo> filmDos = filmService.findByModel(new FilmReq());
         for (FilmDo item : filmDos
         ) {
             System.out.println(item.getName());

@@ -3,6 +3,7 @@ package com.example.film.controller;
 import com.example.film.doo.DetailDo;
 import com.example.film.doo.FilmDo;
 import com.example.film.doo.TimeTableDo;
+import com.example.film.dto.req.FilmReq;
 import com.example.film.dto.req.OrderReq;
 import com.example.film.dto.req.TimeTableReq;
 import com.example.film.entity.Detail;
@@ -105,7 +106,7 @@ public class OrderController {
         }
 
         //查找电影信息
-        Film filmQuery = new Film();
+        FilmReq filmQuery = new FilmReq();
         filmQuery.setId(timeTableDo.getFilmId());
         List<FilmDo> filmDos = filmService.findByModel(filmQuery);
         FilmDo filmDo = null;

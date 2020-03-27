@@ -1,5 +1,6 @@
 package com.example.film.controller;
 
+import com.example.film.dto.req.FilmReq;
 import com.example.film.entity.Film;
 import com.example.film.service.FilmService;
 import com.example.film.utils.ImageUpload;
@@ -26,7 +27,7 @@ public class FilmController {
     FilmService filmService;
 
     @RequestMapping(value = "/findByModel")
-    public ResultUtil findByModel(Film film) {
+    public ResultUtil findByModel(FilmReq film) {
         return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.FIND_SUCCESS, filmService.findByModel(film));
     }
 
@@ -36,7 +37,7 @@ public class FilmController {
         film.setImage(fileName);
         film.setCreateTime(new Date());
         filmService.insert(film);
-        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.INSERT_SUCCESS, filmService.findByModel(new Film()));
+        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.INSERT_SUCCESS, filmService.findByModel(new FilmReq()));
     }
 
     @RequestMapping(value = "/update")
@@ -46,18 +47,18 @@ public class FilmController {
             film.setImage(fileName);
         }
         filmService.update(film);
-        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.UPDATE_SUCCESS, filmService.findByModel(new Film()));
+        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.UPDATE_SUCCESS, filmService.findByModel(new FilmReq()));
     }
 
     @RequestMapping(value = "/updateShelves")
     public ResultUtil updateShelves(Film film) {
         filmService.update(film);
-        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.UPDATE_SUCCESS, filmService.findByModel(new Film()));
+        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.UPDATE_SUCCESS, filmService.findByModel(new FilmReq()));
     }
 
     @RequestMapping(value = "/delete")
     public ResultUtil delete(Integer id) {
         filmService.delete(id);
-        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.DEL_SUCCESS, filmService.findByModel(new Film()));
+        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.DEL_SUCCESS, filmService.findByModel(new FilmReq()));
     }
 }

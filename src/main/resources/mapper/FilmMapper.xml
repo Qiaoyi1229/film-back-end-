@@ -8,6 +8,7 @@
         <result column="actor" property="actor" jdbcType="VARCHAR"/>
         <result column="details" property="details" jdbcType="VARCHAR"/>
         <result column="length" property="length" jdbcType="VARCHAR"/>
+        <result column="film_type" property="filmType" jdbcType="VARCHAR"/>
         <result column="type_id" property="typeId" jdbcType="INTEGER"/>
         <result column="release_time" property="releaseTime" jdbcType="TIMESTAMP"/>
         <result column="area_id" property="areaId" jdbcType="INTEGER"/>
@@ -23,6 +24,7 @@
         <result column="actor" property="actor" jdbcType="VARCHAR"/>
         <result column="details" property="details" jdbcType="VARCHAR"/>
         <result column="length" property="length" jdbcType="VARCHAR"/>
+        <result column="film_type" property="filmType" jdbcType="VARCHAR"/>
         <result column="type_id" property="typeId" jdbcType="INTEGER"/>
         <result column="release_time" property="releaseTime" jdbcType="TIMESTAMP"/>
         <result column="area_id" property="areaId" jdbcType="INTEGER"/>
@@ -34,11 +36,11 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-    id, name, director, actor, details, length, type_id, release_time, area_id, image, 
+    id, name, director, actor, details, length,film_type, type_id, release_time, area_id, image,
     film_shelves, create_time
   </sql>
 
-    <select id="findByModel" resultMap="resultMap" parameterType="com.example.film.entity.Film">
+    <select id="findByModel" resultMap="resultMap" parameterType="com.example.film.query.FilmQuery">
         SELECT
         film.*,area.name as areaName,types.`name` as typeName
         FROM
@@ -60,6 +62,9 @@
             </if>
             <if test="filmShelves != null">
                 AND film.film_shelves = #{filmShelves}
+            </if>
+            <if test="yearStr != null">
+                AND YEAR(film.release_time) = #{yearStr}
             </if>
             <if test="director != null">
                 AND film.director LIKE CONCAT(CONCAT('%', #{director}), '%')
@@ -111,6 +116,9 @@
             <if test="length != null">
                 length,
             </if>
+            <if test="filmType != null">
+                film_type,
+            </if>
             <if test="typeId != null">
                 type_id,
             </if>
@@ -149,6 +157,9 @@
             <if test="length != null">
                 #{length,jdbcType=VARCHAR},
             </if>
+            <if test="filmType != null">
+                #{filmType,jdbcType=VARCHAR},
+            </if>
             <if test="typeId != null">
                 #{typeId,jdbcType=INTEGER},
             </if>
@@ -186,6 +197,9 @@
             </if>
             <if test="length != null">
                 length = #{length,jdbcType=VARCHAR},
+            </if>
+            <if test="filmType != null">
+                film_type = #{filmType,jdbcType=VARCHAR},
             </if>
             <if test="typeId != null">
                 type_id = #{typeId,jdbcType=INTEGER},
