@@ -4,9 +4,12 @@
     <resultMap id="BaseResultMap" type="com.example.film.entity.Hall">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="cinema_id" property="cinemaId" jdbcType="INTEGER"/>
+        <result column="rows_num" property="rowsNum" jdbcType="INTEGER"/>
+        <result column="columns" property="columns" jdbcType="INTEGER"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, name
+    id, name,cinema_id,rows_num,columns
   </sql>
 
     <select id="findAll" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -36,6 +39,15 @@
             <if test="name != null">
                 name,
             </if>
+            <if test="cinemaId != null">
+                cinema_id,
+            </if>
+            <if test="rowsNum != null">
+                rows_num,
+            </if>
+            <if test="columns != null">
+                columns,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -44,6 +56,15 @@
             <if test="name != null">
                 #{name,jdbcType=VARCHAR},
             </if>
+            <if test="cinemaId != null">
+                #{cinemaId,jdbcType=INTEGER},
+            </if>
+            <if test="rowsNum != null">
+                #{rowsNum,jdbcType=INTEGER},
+            </if>
+            <if test="columns != null">
+                #{columns,jdbcType=INTEGER},
+            </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.example.film.entity.Hall">
@@ -51,6 +72,15 @@
         <set>
             <if test="name != null">
                 name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="cinemaId != null">
+                cinema_id = #{cinemaId,jdbcType=INTEGER},
+            </if>
+            <if test="rowsNum != null">
+                rows_num = #{rowsNum,jdbcType=INTEGER},
+            </if>
+            <if test="columns != null">
+                columns = #{columns,jdbcType=INTEGER},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}

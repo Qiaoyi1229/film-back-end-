@@ -5,6 +5,12 @@ public class Hall {
 
     private String name;
 
+    private Integer cinemaId;
+
+    private Integer rowsNum;
+
+    private Integer columns;
+
     public Integer getId() {
         return id;
     }
@@ -19,5 +25,29 @@ public class Hall {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public Integer getCinemaId() {
+        return cinemaId;
+    }
+
+    public void setCinemaId(Integer cinemaId) {
+        this.cinemaId = cinemaId;
+    }
+
+    public Integer getColumns() {
+        return columns;
+    }
+
+    public void setColumns(Integer columns) {
+        this.columns = columns;
+    }
+
+    public Integer getRowsNum() {
+        return rowsNum;
+    }
+
+    public void setRowsNum(Integer rowsNum) {
+        this.rowsNum = rowsNum;
     }
 }
