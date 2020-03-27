@@ -20,6 +20,11 @@ public class HallController {
     @Autowired
     HallService hallService;
 
+    @RequestMapping(value = "/findByModel")
+    public ResultUtil findByModel(Hall hall) {
+        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.FIND_SUCCESS, hallService.findByModel(hall));
+    }
+
     @RequestMapping(value = "/findAll")
     public ResultUtil findAll() {
         return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.FIND_SUCCESS, hallService.findAll());

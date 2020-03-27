@@ -1,5 +1,6 @@
 package com.example.film.service.impl;
 
+import com.example.film.doo.HallDo;
 import com.example.film.entity.Hall;
 import com.example.film.mapper.HallMapper;
 import com.example.film.service.HallService;
@@ -18,6 +19,11 @@ public class HallServiceImpl implements HallService {
 
     @Autowired
     HallMapper hallMapper;
+
+    @Override
+    public List<HallDo> findByModel(Hall hall) {
+        return hallMapper.findByModel(hall);
+    }
 
     @Override
     public List<Hall> findAll() {

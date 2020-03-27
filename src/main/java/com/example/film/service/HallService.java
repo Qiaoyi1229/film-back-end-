@@ -1,5 +1,6 @@
 package com.example.film.service;
 
+import com.example.film.doo.HallDo;
 import com.example.film.entity.Hall;
 
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.List;
  * @date 2020/3/11 15:58
  */
 public interface HallService {
+
+    List<HallDo> findByModel(Hall hall);
 
     List<Hall> findAll();
 

@@ -8,6 +8,33 @@
         <result column="rows_num" property="rowsNum" jdbcType="INTEGER"/>
         <result column="columns" property="columns" jdbcType="INTEGER"/>
     </resultMap>
+
+    <resultMap id="resultMap" type="com.example.film.doo.HallDo">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="cinemaName" property="cinemaName" jdbcType="VARCHAR"/>
+        <result column="cinema_id" property="cinemaId" jdbcType="INTEGER"/>
+        <result column="rows_num" property="rowsNum" jdbcType="INTEGER"/>
+        <result column="columns" property="columns" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="findByModel" resultMap="resultMap" parameterType="com.example.film.entity.Hall">
+        SELECT
+        hall.*,cinema.`name` as cinemaName
+        FROM
+        `hall`
+        LEFT JOIN cinema ON cinema.id = hall.cinema_id
+        <trim prefix="where" prefixOverrides="AND">
+            <if test="id != null">
+                AND hall.id = #{id}
+            </if>
+            <if test="cinemaId != null ">
+                AND hall.cinema_id = #{cinemaId}
+            </if>
+        </trim>
+    </select>
+
+
     <sql id="Base_Column_List">
     id, name,cinema_id,rows_num,columns
   </sql>
