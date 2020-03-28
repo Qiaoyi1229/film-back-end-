@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface CinemaMapper {
 
+    List<Cinema> findByFilmId(Integer id);
+
     List<Cinema> findAll();
 
     int deleteByPrimaryKey(Integer id);

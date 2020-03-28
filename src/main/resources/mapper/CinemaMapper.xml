@@ -16,6 +16,18 @@
     </select>
 
 
+    <select id="findByFilmId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT
+            cinema.*
+        FROM
+            `cinema`
+            LEFT JOIN hall ON hall.cinema_id = cinema.id
+            LEFT JOIN time_table ON time_table.hall_id = hall.id
+            where time_table.film_id = #{id,jdbcType=INTEGER}
+            and time_table.start_time > NOW()
+            GROUP BY cinema.`name`
+    </select>
+
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>

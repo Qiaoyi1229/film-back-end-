@@ -14,6 +14,8 @@ public class TimeTableQueryModel {
 
     private Integer filmId;
 
+    private Integer cinemaId;
+
     private Integer hallId;
 
     private Date startTime;
@@ -68,5 +70,13 @@ public class TimeTableQueryModel {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public Integer getCinemaId() {
+        return cinemaId;
+    }
+
+    public void setCinemaId(Integer cinemaId) {
+        this.cinemaId = cinemaId;
     }
 }

@@ -21,6 +21,17 @@ public class CinemaController {
     @Autowired
     CinemaService cinemaService;
 
+    /**
+     * 根据电影id，查询当前正在上映带电影的影院
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/findByFilmId")
+    public ResultUtil findByFilmId(Integer id) {
+        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.FIND_SUCCESS, cinemaService.findByFilmId(id));
+    }
+
     @RequestMapping(value = "/findAll")
     public ResultUtil findAll() {
         return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.FIND_SUCCESS, cinemaService.findAll());

@@ -41,6 +41,17 @@ public class FilmController {
         return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.FIND_SUCCESS, filmService.priceList());
     }
 
+    /**
+     * 根据电影院查找当前正在播放的电影
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/findByCinemaId")
+    public ResultUtil findByCinemaId(Integer id) {
+        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.FIND_SUCCESS, filmService.findByCinemaId(id));
+    }
+
     @RequestMapping(value = "/insert")
     public ResultUtil insert(@RequestParam(value = "file") MultipartFile file, Film film) {
         String fileName = ImageUpload.upload(file);

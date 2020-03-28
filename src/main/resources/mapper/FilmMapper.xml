@@ -73,6 +73,24 @@
     </select>
 
 
+    <select id="findByCinemaId" resultMap="resultMap" parameterType="java.lang.Integer">
+        SELECT
+            film.*,area.name as areaName,types.`name` as typeName
+        FROM
+            `film`
+            LEFT JOIN area ON film.area_id = area.id
+            LEFT JOIN types ON film.type_id = types.id
+            LEFT JOIN time_table ON time_table.film_id = film.id
+            LEFT JOIN hall ON time_table.hall_id = hall.id
+            LEFT JOIN cinema ON cinema.id = hall.cinema_id
+        WHERE
+            time_table.start_time > NOW( )
+            AND cinema.id = #{id,jdbcType=INTEGER}
+        GROUP BY
+            film.id
+    </select>
+
+
     <select id="priceList" resultMap="resultMap" parameterType="com.example.film.query.FilmQuery">
             SELECT
                 film.*,

@@ -24,6 +24,11 @@ public class FilmServiceImpl implements FilmService {
     FilmMapper filmMapper;
 
     @Override
+    public List<FilmDo> findByCinemaId(Integer id) {
+        return filmMapper.findByCinemaId(id);
+    }
+
+    @Override
     public List<FilmDo> priceList() {
         return filmMapper.priceList();
     }

@@ -20,6 +20,11 @@ public class CinemaServiceImpl implements CinemaService {
     CinemaMapper cinemaMapper;
 
     @Override
+    public List<Cinema> findByFilmId(Integer id) {
+        return cinemaMapper.findByFilmId(id);
+    }
+
+    @Override
     public List<Cinema> findAll() {
         return cinemaMapper.findAll();
     }

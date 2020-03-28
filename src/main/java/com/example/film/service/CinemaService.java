@@ -11,6 +11,8 @@ import java.util.List;
  */
 public interface CinemaService {
 
+    List<Cinema> findByFilmId(Integer id);
+
     List<Cinema> findAll();
 
     Integer insert(Cinema cinema);
