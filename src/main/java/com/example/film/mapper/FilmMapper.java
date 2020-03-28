@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface FilmMapper {
 
+    List<FilmDo> priceList();
+
     List<FilmDo> findByModel(FilmQuery film);
 
     int deleteByPrimaryKey(Integer id);

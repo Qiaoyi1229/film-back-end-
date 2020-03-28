@@ -73,6 +73,23 @@
     </select>
 
 
+    <select id="priceList" resultMap="resultMap" parameterType="com.example.film.query.FilmQuery">
+            SELECT
+                film.*,
+                sum( `order`.total ) AS total
+            FROM
+                `film`
+                LEFT JOIN time_table ON time_table.film_id = film.id
+                LEFT JOIN `order` ON `order`.time_id = time_table.id
+            WHERE
+            `order`.`status` = 1
+            AND film.film_shelves = 1
+            GROUP BY
+                film.id
+            ORDER BY total DESC
+    </select>
+
+
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>

@@ -31,6 +31,16 @@ public class FilmController {
         return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.FIND_SUCCESS, filmService.findByModel(film));
     }
 
+    /**
+     * 电影票房榜单
+     *
+     * @return
+     */
+    @RequestMapping(value = "/priceList")
+    public ResultUtil priceList() {
+        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.FIND_SUCCESS, filmService.priceList());
+    }
+
     @RequestMapping(value = "/insert")
     public ResultUtil insert(@RequestParam(value = "file") MultipartFile file, Film film) {
         String fileName = ImageUpload.upload(file);

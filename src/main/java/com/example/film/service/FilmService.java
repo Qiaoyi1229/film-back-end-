@@ -13,6 +13,8 @@ import java.util.List;
  */
 public interface FilmService {
 
+    List<FilmDo> priceList();
+
     List<FilmDo> findByModel(FilmReq filmReq);
 
     Integer insert(Film film);
