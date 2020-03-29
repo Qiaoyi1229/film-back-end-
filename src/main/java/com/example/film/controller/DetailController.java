@@ -28,8 +28,9 @@ public class DetailController {
 
     @RequestMapping(value = "/findByOrderId")
     public ResultUtil findByOrderId(Integer id) {
-
-        List<DetailDo> detailDos = detailService.findByOrderId(id);
+        Detail query = new Detail();
+        query.setOrderId(id);
+        List<DetailDo> detailDos = detailService.findByOrderId(query);
         List<DetailResp> detailResps = new ArrayList<>();
         for (DetailDo item : detailDos) {
             DetailResp detailResp = new DetailResp();

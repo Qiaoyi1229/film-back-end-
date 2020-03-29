@@ -18,7 +18,13 @@
                 AND id = #{id}
             </if>
             <if test="timeId != null">
-                AND time_id = #{timeId}
+                AND seat.time_id = #{timeId}
+            </if>
+            <if test="row != null">
+                AND seat.row = #{row}
+            </if>
+            <if test="num != null">
+                AND seat.num= #{num}
             </if>
         </trim>
     </select>

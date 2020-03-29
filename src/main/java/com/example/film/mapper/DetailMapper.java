@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DetailMapper {
 
-    List<DetailDo> findByOrderId(Integer id);
+    List<DetailDo> findByOrderId(Detail detail);
 
     int deleteByPrimaryKey(Integer id);
 

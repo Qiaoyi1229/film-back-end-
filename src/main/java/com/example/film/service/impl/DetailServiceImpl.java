@@ -22,8 +22,8 @@ public class DetailServiceImpl implements DetailService {
 
 
     @Override
-    public List<DetailDo> findByOrderId(Integer id) {
-        return detailMapper.findByOrderId(id);
+    public List<DetailDo> findByOrderId(Detail detail) {
+        return detailMapper.findByOrderId(detail);
     }
 
     @Override

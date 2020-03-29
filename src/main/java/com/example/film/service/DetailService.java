@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface DetailService {
 
-    List<DetailDo> findByOrderId(Integer id);
+    List<DetailDo> findByOrderId(Detail detail);
 
     Integer insert(Detail detail);
 

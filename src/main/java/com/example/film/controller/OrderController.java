@@ -6,6 +6,7 @@ import com.example.film.doo.TimeTableDo;
 import com.example.film.dto.req.FilmReq;
 import com.example.film.dto.req.OrderReq;
 import com.example.film.dto.req.TimeTableReq;
+import com.example.film.dto.resp.MailResp;
 import com.example.film.entity.Detail;
 import com.example.film.entity.Film;
 import com.example.film.entity.Order;
@@ -16,10 +17,15 @@ import com.example.film.utils.ResultUtil;
 import com.example.film.utils.SuccessCode;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -27,6 +33,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author 陈乐
@@ -36,6 +43,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/film/order")
 public class OrderController {
+
+    @Autowired
+    JavaMailSender mailSender;
 
     @Autowired
     OrderService orderService;
@@ -133,7 +143,9 @@ public class OrderController {
         //在根据id将座位表中的数据删除
         orderService.update(order);
 
-        List<DetailDo> detailDos = detailService.findByOrderId(order.getId());
+        Detail query = new Detail();
+        query.setOrderId(order.getId());
+        List<DetailDo> detailDos = detailService.findByOrderId(query);
         for (DetailDo item : detailDos) {
             seatService.delete(item.getSeatId());
         }
@@ -175,6 +187,51 @@ public class OrderController {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    /**
+     * 未登录用户使用邮箱验证登录
+     */
+    @RequestMapping(value = "/sendMail")
+    public ResultUtil sendMail(String mail) {
+        Random random = new Random();
+        Integer code = random.nextInt(8999) + 1000;
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("cl1429745331@163.com");
+        message.setTo(mail);
+        message.setSubject("登录验证信息");
+        message.setText("欢迎登陆淘票票电影网，您本次的登录验证码为：" + code);
+        try {
+            mailSender.send(message);
+            System.out.println("发送成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        MailResp mailResp = new MailResp();
+        mailResp.setCode(code);
+        mailResp.setMail(mail);
+        return ResultUtil.build(SuccessCode.SUCCESS_CODE, "邮件发送成功", mailResp);
+    }
+
+    /**
+     * 发送电影票
+     */
+    public void sendTicket(String mail) {
+        MimeMessage message = mailSender.createMimeMessage();
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setFrom("cl1429745331@163.com");
+            helper.setTo(mail);
+            helper.setSubject("购票成功");
+            helper.setText("购票成功，请查看附件。");
+            FileSystemResource file = new FileSystemResource("F:/ticket.pdf");
+            helper.addAttachment("电影票.pdf", file);
+            mailSender.send(message);
+            System.out.println("电影票发送成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("电影票发送失败");
         }
     }
 }
