@@ -10,6 +10,11 @@
         <result column="total" property="total" jdbcType="VARCHAR"/>
         <result column="status" property="status" jdbcType="INTEGER"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="mail" property="mail" jdbcType="VARCHAR"/>
+        <result column="pay_type" property="payType" jdbcType="VARCHAR"/>
+        <result column="card_no" property="cardNo" jdbcType="VARCHAR"/>
+        <result column="order_type" property="orderType" jdbcType="VARCHAR"/>
+        <result column="vip_seat" property="vipSeat" jdbcType="INTEGER"/>
     </resultMap>
 
     <resultMap id="resultMap" type="com.example.film.doo.OrderDo">
@@ -28,10 +33,15 @@
         <result column="count" property="count" jdbcType="INTEGER"/>
         <result column="week" property="week" jdbcType="INTEGER"/>
         <result column="filmId" property="filmId" jdbcType="INTEGER"/>
+        <result column="mail" property="mail" jdbcType="VARCHAR"/>
+        <result column="pay_type" property="payType" jdbcType="VARCHAR"/>
+        <result column="card_no" property="cardNo" jdbcType="VARCHAR"/>
+        <result column="order_type" property="orderType" jdbcType="VARCHAR"/>
+        <result column="vip_seat" property="vipSeat" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-    id, order_no, ticket_code,user_id, time_id, total, status, create_time
+    id, order_no, ticket_code,user_id, time_id, total, status, create_time,mail,pay_type,card_no,order_type,vip_seat
   </sql>
 
     <select id="getTotal" resultType="Integer" parameterType="java.lang.Integer">
@@ -109,6 +119,8 @@
         GROUP BY
             types.id
     </select>
+
+
     <select id="findByModel" resultMap="resultMap" parameterType="com.example.film.entity.Order">
         SELECT
         `order`.*,
@@ -126,6 +138,9 @@
             </if>
             <if test="orderNo != null and orderNo != '' ">
                 AND `order`.order_no = #{orderNo}
+            </if>
+            <if test="mail != null and mail != '' ">
+                AND `order`.mail = #{mail}
             </if>
             <if test="status != null">
                 AND `order`.status = #{status}
@@ -186,6 +201,21 @@
             <if test="createTime != null">
                 create_time,
             </if>
+            <if test="mail != null">
+                mail,
+            </if>
+            <if test="payType != null">
+                pay_type,
+            </if>
+            <if test="cardNo != null">
+                card_no,
+            </if>
+            <if test="orderType != null">
+                order_type
+            </if>
+            <if test="vipSeat != null">
+                vip_seat,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -212,6 +242,21 @@
             <if test="createTime != null">
                 #{createTime,jdbcType=TIMESTAMP},
             </if>
+            <if test="mail != null">
+                #{mail,jdbcType=VARCHAR},
+            </if>
+            <if test="payType != null">
+                #{payType,jdbcType=VARCHAR},
+            </if>
+            <if test="cardNo != null">
+                #{cardNo,jdbcType=VARCHAR},
+            </if>
+            <if test="orderType != null">
+                #{orderType,jdbcType=VARCHAR},
+            </if>
+            <if test="vipSeat != null">
+                #{vipSeat,jdbcType=INTEGER},
+            </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.example.film.entity.Order">
@@ -234,6 +279,21 @@
             </if>
             <if test="createTime != null">
                 create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="mail != null">
+                mail = #{mail,jdbcType=VARCHAR},
+            </if>
+            <if test="payType != null">
+                pay_type = #{payType,jdbcType=VARCHAR},
+            </if>
+            <if test="cardNo != null">
+                card_no = #{cardNo,jdbcType=VARCHAR},
+            </if>
+            <if test="orderType != null">
+                order_type = #{orderType,jdbcType=VARCHAR},
+            </if>
+            <if test="vipSeat != null">
+                vip_seat = #{vipSeat,jdbcType=INTEGER},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}

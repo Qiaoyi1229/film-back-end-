@@ -12,6 +12,7 @@ import com.example.film.entity.Film;
 import com.example.film.entity.Order;
 import com.example.film.entity.Seat;
 import com.example.film.service.*;
+import com.example.film.utils.ErrCode;
 import com.example.film.utils.PDFUtil;
 import com.example.film.utils.ResultUtil;
 import com.example.film.utils.SuccessCode;
@@ -68,17 +69,51 @@ public class OrderController {
         return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.FIND_SUCCESS, orderService.findByModel(order));
     }
 
+    /**
+     * 下单时确认该座位有没有被锁定
+     *
+     * @param orderReq
+     * @return
+     */
+    @RequestMapping(value = "/checkSeat")
+    public ResultUtil checkSeat(OrderReq orderReq) {
+        String[] seat1 = orderReq.getSeatsInfo().split(",");
+        List<Seat> seatList;
+        for (String item : seat1) {
+            String[] seat2 = item.split("\\*");
+            Seat seat = new Seat();
+            seat.setTimeId(orderReq.getTimeId());
+            seat.setRow(Integer.parseInt(seat2[0]));
+            seat.setNum(Integer.parseInt(seat2[1]));
+            seatList = seatService.findByModel(seat);
+
+            if (seatList.size() > 0) {
+                return ResultUtil.build(ErrCode.ERR_CODE, "位置" + seat2[0] + "排" + seat2[1] + "座已锁定", null);
+            }
+        }
+
+        return ResultUtil.build(SuccessCode.SUCCESS_CODE, "位置可以购买", null);
+    }
+
+
     @RequestMapping(value = "/insert")
     public ResultUtil insert(OrderReq orderReq) throws IOException {
         //先插入订单，返回主键
         //将座位插入表中，返回主键
         //将座位主键插入进订单详情表中
 
+        Order order = new Order();
+
         //生成订单号；时间戳+场次+用户
-        String orderNo = String.valueOf(new Date().getTime()) + orderReq.getTimeId() + orderReq.getUserId();
+        String orderNo;
+        if (orderReq.getUserId() != null) {
+            orderNo = String.valueOf(new Date().getTime()) + orderReq.getTimeId() + orderReq.getUserId();
+        } else {
+            orderNo = String.valueOf(new Date().getTime()) + orderReq.getTimeId();
+        }
         //取票码：订单号后八位
         String ticketCode = orderNo.substring(orderNo.length() - 8);
-        Order order = new Order();
+
         BeanUtils.copyProperties(orderReq, order);
         order.setCreateTime(new Date());
         order.setOrderNo(orderNo);

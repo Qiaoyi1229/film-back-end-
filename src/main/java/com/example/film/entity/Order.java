@@ -19,6 +19,16 @@ public class Order {
 
     private Date createTime;
 
+    private String mail;
+
+    private String payType;
+
+    private String cardNo;
+
+    private String orderType;
+
+    private Integer vipSeat;
+
     public Integer getId() {
         return id;
     }
@@ -81,5 +91,45 @@ public class Order {
 
     public void setTicketCode(String ticketCode) {
         this.ticketCode = ticketCode;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getPayType() {
+        return payType;
+    }
+
+    public void setPayType(String payType) {
+        this.payType = payType;
+    }
+
+    public String getCardNo() {
+        return cardNo;
+    }
+
+    public void setCardNo(String cardNo) {
+        this.cardNo = cardNo;
+    }
+
+    public String getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
+    }
+
+    public Integer getVipSeat() {
+        return vipSeat;
+    }
+
+    public void setVipSeat(Integer vipSeat) {
+        this.vipSeat = vipSeat;
     }
 }
