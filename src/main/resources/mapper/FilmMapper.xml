@@ -33,6 +33,7 @@
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="typeName" property="typeName" jdbcType="VARCHAR"/>
         <result column="areaName" property="areaName" jdbcType="VARCHAR"/>
+        <result column="priceTotal" property="priceTotal" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -94,7 +95,7 @@
     <select id="priceList" resultMap="resultMap" parameterType="com.example.film.query.FilmQuery">
             SELECT
                 film.*,
-                sum( `order`.total ) AS total
+                sum( `order`.total ) AS priceTotal
             FROM
                 `film`
                 LEFT JOIN time_table ON time_table.film_id = film.id
@@ -104,7 +105,7 @@
             AND film.film_shelves = 1
             GROUP BY
                 film.id
-            ORDER BY total DESC
+            ORDER BY priceTotal DESC
     </select>
 
 

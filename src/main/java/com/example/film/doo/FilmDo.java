@@ -39,6 +39,8 @@ public class FilmDo {
 
     private String typeName;
 
+    private Integer priceTotal;
+
     public Integer getId() {
         return id;
     }
@@ -157,5 +159,13 @@ public class FilmDo {
 
     public void setFilmType(String filmType) {
         this.filmType = filmType;
+    }
+
+    public Integer getPriceTotal() {
+        return priceTotal;
+    }
+
+    public void setPriceTotal(Integer priceTotal) {
+        this.priceTotal = priceTotal;
     }
 }
