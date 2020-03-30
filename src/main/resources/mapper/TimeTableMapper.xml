@@ -46,6 +46,9 @@
             <if test="endTime != null">
                 AND time_table.start_time &lt;= #{endTime}
             </if>
+            <if test="cinemaId != null">
+                AND hall.cinema_id = #{cinemaId}
+            </if>
         </trim>
         ORDER BY time_table.start_time DESC
     </select>

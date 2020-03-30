@@ -22,6 +22,8 @@ public class TimeTableReq {
 
     private Date endTime;
 
+    private Integer cinemaId;
+
     public Integer getId() {
         return id;
     }
@@ -68,5 +70,13 @@ public class TimeTableReq {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public Integer getCinemaId() {
+        return cinemaId;
+    }
+
+    public void setCinemaId(Integer cinemaId) {
+        this.cinemaId = cinemaId;
     }
 }
