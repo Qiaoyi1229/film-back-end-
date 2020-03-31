@@ -11,6 +11,7 @@ import com.example.film.dto.resp.OrderResp;
 import com.example.film.entity.Detail;
 import com.example.film.entity.Order;
 import com.example.film.entity.Seat;
+import com.example.film.entity.User;
 import com.example.film.service.*;
 import com.example.film.utils.*;
 import org.springframework.beans.BeanUtils;
@@ -59,6 +60,9 @@ public class OrderController {
 
     @Autowired
     FilmService filmService;
+
+    @Autowired
+    UserService userService;
 
 
     @RequestMapping(value = "/findByModel")
@@ -193,6 +197,15 @@ public class OrderController {
         //取票码生成二维码
         String codeURL = "/image/" + order.getTicketCode() + ".png";
         QRCodeUtil.generateQRCode(order.getTicketCode(), 100, 100, "png", "D:\\IdeaWorkspace\\spring-framework-master\\film\\src\\main\\resources\\templates\\image\\" + order.getTicketCode() + ".png");
+
+        //邮件发送pdf文件
+        //判断该订单是用户还是直接邮箱登录、用户的话则发送给用户邮箱否则直接发送给登录邮箱
+        if (order.getUserId() != null) {
+            User user = userService.findById(order.getUserId());
+            sendTicket(user.getMail(), pdfURL);
+        } else {
+            sendTicket(order.getMail(), pdfURL);
+        }
 
         OrderResp orderResp = new OrderResp();
         orderResp.setOrder(order);
@@ -361,7 +374,7 @@ public class OrderController {
     /**
      * 发送电影票
      */
-    public void sendTicket(String mail) {
+    public void sendTicket(String mail, String pdfURL) {
         MimeMessage message = mailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -369,7 +382,7 @@ public class OrderController {
             helper.setTo(mail);
             helper.setSubject("购票成功");
             helper.setText("购票成功，请查看附件。");
-            FileSystemResource file = new FileSystemResource("F:/ticket.pdf");
+            FileSystemResource file = new FileSystemResource(pdfURL);
             helper.addAttachment("电影票.pdf", file);
             mailSender.send(message);
             System.out.println("电影票发送成功");

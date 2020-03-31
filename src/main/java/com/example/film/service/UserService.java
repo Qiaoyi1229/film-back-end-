@@ -18,4 +18,6 @@ public interface UserService {
     Integer update(User user);
 
     Integer delete(Integer id);
+
+    User findById(Integer id);
 }
