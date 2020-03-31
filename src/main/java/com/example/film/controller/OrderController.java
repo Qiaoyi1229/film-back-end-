@@ -200,7 +200,7 @@ public class OrderController {
 
         //邮件发送pdf文件
         //判断该订单是用户还是直接邮箱登录、用户的话则发送给用户邮箱否则直接发送给登录邮箱
-        if (order.getUserId() != null) {
+        if (order.getUserId() != null && order.getUserId() != 0) {
             User user = userService.findById(order.getUserId());
             sendTicket(user.getMail(), pdfURL);
         } else {
