@@ -51,6 +51,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Order findById(Integer id) {
+        return orderMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
     public Integer insert(Order order) {
         orderMapper.insertSelective(order);
         return order.getId();

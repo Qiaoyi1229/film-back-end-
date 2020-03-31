@@ -24,6 +24,8 @@ public interface OrderService {
 
     List<OrderDo> findByModel(Order order);
 
+    Order findById(Integer id);
+
     Integer insert(Order order);
 
     Integer update(Order order);
