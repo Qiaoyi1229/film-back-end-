@@ -67,6 +67,9 @@ public class OrderController {
 
     @RequestMapping(value = "/findByModel")
     public ResultUtil findByModel(Order order) {
+        if (order.getStatus() == 0) {
+            order.setStatus(null);
+        }
         return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.FIND_SUCCESS, orderService.findByModel(order));
     }
 
