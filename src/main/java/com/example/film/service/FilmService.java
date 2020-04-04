@@ -17,6 +17,8 @@ public interface FilmService {
 
     List<FilmDo> priceList();
 
+    List<FilmDo> findUpComing();
+
     List<FilmDo> findByModel(FilmReq filmReq);
 
     Integer insert(Film film);

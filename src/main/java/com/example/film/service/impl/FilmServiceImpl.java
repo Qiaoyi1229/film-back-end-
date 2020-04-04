@@ -34,6 +34,11 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
+    public List<FilmDo> findUpComing() {
+        return filmMapper.findUpComing();
+    }
+
+    @Override
     public List<FilmDo> findByModel(FilmReq filmReq) {
         FilmQuery film = new FilmQuery();
         BeanUtils.copyProperties(filmReq, film);

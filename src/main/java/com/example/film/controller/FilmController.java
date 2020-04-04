@@ -32,6 +32,14 @@ public class FilmController {
     }
 
     /**
+     * 即将上映
+     */
+    @RequestMapping(value = "/findUpComing")
+    public ResultUtil findUpComing() {
+        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.FIND_SUCCESS, filmService.findUpComing());
+    }
+
+    /**
      * 电影票房榜单
      *
      * @return

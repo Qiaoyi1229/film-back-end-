@@ -74,6 +74,17 @@
     </select>
 
 
+    <select id="findUpComing" resultMap="resultMap">
+        SELECT
+        film.*,area.name as areaName,types.`name` as typeName
+        FROM
+        `film`
+        LEFT JOIN area ON film.area_id = area.id
+        LEFT JOIN types ON film.type_id = types.id
+         where film.release_time > NOW()
+    </select>
+
+
     <select id="findByCinemaId" resultMap="resultMap" parameterType="java.lang.Integer">
         SELECT
             film.*,area.name as areaName,types.`name` as typeName

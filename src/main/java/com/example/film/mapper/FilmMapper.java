@@ -14,6 +14,8 @@ public interface FilmMapper {
 
     List<FilmDo> findByModel(FilmQuery film);
 
+    List<FilmDo> findUpComing();
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(Film record);
