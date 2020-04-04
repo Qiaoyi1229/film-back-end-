@@ -15,9 +15,12 @@
 <h1>hello springboot!!!</h1>
 
 <br/>
-<form action="/fileUpload" method="post" enctype="multipart/form-data">
+<form action="/api/v1/film/cinema/insert" method="post" enctype="multipart/form-data">
     <label>上传图片</label>
     <input type="text" name="name"/>
+    <input type="text" name="info"/>
+    <input type="text" name="phone"/>
+    <input type="text" name="address"/>
     <input type="file" name="file"/>
     <input type="submit" value="上传"/>
 </form>

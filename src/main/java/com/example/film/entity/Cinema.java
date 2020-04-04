@@ -5,6 +5,14 @@ public class Cinema {
 
     private String name;
 
+    private String info;
+
+    private String address;
+
+    private String phone;
+
+    private String image;
+
     public Integer getId() {
         return id;
     }
@@ -19,5 +27,37 @@ public class Cinema {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

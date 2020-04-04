@@ -4,9 +4,13 @@
     <resultMap id="BaseResultMap" type="com.example.film.entity.Cinema">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="info" property="info" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="image" property="image" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, name
+    id, name,info,address,phone,image
   </sql>
 
     <select id="findAll" resultMap="BaseResultMap">
@@ -51,6 +55,18 @@
             <if test="name != null">
                 name,
             </if>
+            <if test="info != null">
+                info,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="image != null">
+                image,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -59,6 +75,18 @@
             <if test="name != null">
                 #{name,jdbcType=VARCHAR},
             </if>
+            <if test="info != null">
+                #{info,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="image != null">
+                #{image,jdbcType=VARCHAR},
+            </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.example.film.entity.Cinema">
@@ -66,6 +94,18 @@
         <set>
             <if test="name != null">
                 name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="info != null">
+                info = #{info,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="image != null">
+                image = #{image,jdbcType=VARCHAR},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
