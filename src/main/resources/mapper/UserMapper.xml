@@ -12,9 +12,11 @@
         <result column="head_iamge" property="headIamge" jdbcType="VARCHAR"/>
         <result column="role" property="role" jdbcType="INTEGER"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="vip" property="vip" jdbcType="INTEGER"/>
+        <result column="money" property="money" jdbcType="INTEGER"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, name, password, mail, phone, age, head_iamge, role, create_time
+    id, name, password, mail, phone, age, head_iamge, role, create_time,money,vip
   </sql>
 
     <select id="findByModel" resultMap="BaseResultMap" parameterType="com.example.film.entity.User">
@@ -37,6 +39,9 @@
             </if>
             <if test="role != null">
                 AND role = #{role}
+            </if>
+            <if test="vip != null">
+                AND vip = #{vip}
             </if>
         </trim>
     </select>
@@ -150,6 +155,12 @@
             </if>
             <if test="createTime != null">
                 create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="money != null">
+                money = #{money,jdbcType=INTEGER},
+            </if>
+            <if test="vip != null">
+                vip = #{vip,jdbcType=INTEGER},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}

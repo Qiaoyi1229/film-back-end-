@@ -129,6 +129,23 @@ public class UserController {
         return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.UPDATE_SUCCESS, userService.findByModel(query));
     }
 
+    /**
+     * 充值
+     *
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "/recharge")
+    public ResultUtil recharge(User user) {
+        User userModel = userService.findById(user.getId());
+        userModel.setMoney(userModel.getMoney() + user.getMoney());
+        if (userModel.getMoney() > 300) {
+            userModel.setVip(1);
+        }
+        userService.update(userModel);
+        return ResultUtil.build(SuccessCode.SUCCESS_CODE, SuccessCode.UPDATE_SUCCESS, userService.findByModel(user));
+    }
+
     @RequestMapping(value = "/updatePwd")
     public ResultUtil updatePwd(User user) {
         user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));

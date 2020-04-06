@@ -23,6 +23,10 @@ public class User {
 
     private Date createTime;
 
+    private Integer money;
+
+    private Integer vip;
+
     public Integer getId() {
         return id;
     }
@@ -101,5 +105,21 @@ public class User {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Integer getMoney() {
+        return money;
+    }
+
+    public void setMoney(Integer money) {
+        this.money = money;
+    }
+
+    public Integer getVip() {
+        return vip;
+    }
+
+    public void setVip(Integer vip) {
+        this.vip = vip;
     }
 }
